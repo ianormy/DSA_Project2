@@ -60,13 +60,6 @@ class LinkedList:
 def union(llist_1, llist_2):
     """The union of two sets A and B is the set of elements which are in A, in B, or in both A and B.
 
-    Time Complexity: O(m+n).
-
-    Here ‘m’ and ‘n’ are number of elements present in first and second lists respectively.
-    First, traverse llist_1 and if it's unique add it to the output linked list - O(m)
-    Second, traverse llist_2 and if it's unique and in the Hash-map from llist_1 add it to the output linked list - O(n)
-    Hash-map lookup and addition takes O(1) time.
-
     Args:
         llist_1 (LinkedList): first linked list
         llist_2 (LinkedList): second linked list
@@ -103,10 +96,6 @@ def intersection(llist_1, llist_2):
     Time Complexity: O(m+n).
 
     Here ‘m’ and ‘n’ are number of elements present in first and second lists respectively.
-    First traverse llist-1, storing its elements in a Hash-map - O(m)
-    Second, for every element in llist_2, check if it is already present in llist-1's Hash-map and
-    hasn't already been added, then add it to the output linked list - O(n)
-    Hash-map lookup and addition takes O(1) time.
 
     Args:
         llist_1 (LinkedList): first linked list

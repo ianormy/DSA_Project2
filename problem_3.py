@@ -7,6 +7,7 @@ There are two phases to Huffman encoding:
 2. generating the encoded data
 
 """
+import unittest
 import heapq
 
 
@@ -32,26 +33,27 @@ class HuffmanNode:
         return self.left is None and self.right is None
 
 
-def print_nodes(node, coding_val=''):
-    """Recursive function to print the leaf nodes of a huffman tree
+def generate_huffman_code_dict(huffman_code_dict, node, coding_val=''):
+    """Recursive function to generate a dictionary of huffman codes from
+    the leaf nodes of a huffman tree.
 
     Args:
+        huffman_code_dict (dict): huffman code dictionary
         node (HuffmanNode): the current HuffmanNode we are processing.
         coding_val (str): the huffman code so far.
     """
-    # huffman code for current node
-    # - this gets built up as we traverse the tree.
+    # huffman code for the current node - gets built as we traverse the tree
     huffman_code = coding_val + node.coding_val
 
     # if node is not a leaf node then traverse the left and right nodes
     if node.left:
-        print_nodes(node.left, huffman_code)
+        generate_huffman_code_dict(huffman_code_dict, node.left, huffman_code)
     if node.right:
-        print_nodes(node.right, huffman_code)
+        generate_huffman_code_dict(huffman_code_dict, node.right, huffman_code)
 
-    # if node is a leaf node then display it's huffman code
+    # if node is a leaf node then add it to the dictionary
     if node.is_leaf_node():
-        print(f"{node.key} = {huffman_code}")
+        huffman_code_dict[node.key] = huffman_code
 
 
 def create_huffman_tree(message):
@@ -62,6 +64,8 @@ def create_huffman_tree(message):
     Returns:
         root_node (HuffmanNode): root node of the huffman tree
     """
+    if len(message) == 0:
+        raise ValueError('input message is empty')
     # determine the frequency of each character in the message
     char_freq = {}
     for c in message:
@@ -84,16 +88,21 @@ def create_huffman_tree(message):
     return root_node
 
 
-def main():
-    huffman_tree = create_huffman_tree('AAAAAAABBBCCCCCCCDDEEEEEE')
-    # print the leaf nodes of the tree, generating the encoding for each character as we do this
-    print_nodes(huffman_tree)
-    # D	= 000
-    # B = 001
-    # E = 01
-    # A = 10
-    # C = 11
+class HuffmanCodingTestCase(unittest.TestCase):
+    def test_valid_tree(self):
+        huffman_tree = create_huffman_tree('AAAAAAABBBCCCCCCCDDEEEEEE')
+        huffman_code_dict = {}
+        generate_huffman_code_dict(huffman_code_dict, huffman_tree)
+        self.assertEqual('000', huffman_code_dict['D'])
+        self.assertEqual('001', huffman_code_dict['B'])
+        self.assertEqual('01', huffman_code_dict['E'])
+        self.assertEqual('10', huffman_code_dict['A'])
+        self.assertEqual('11', huffman_code_dict['C'])
+
+    def test_empty_message_raises_value_error(self):
+        with self.assertRaises(ValueError):
+            create_huffman_tree('')
 
 
 if __name__ == '__main__':
-    main()
+    unittest.main()
