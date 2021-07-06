@@ -24,3 +24,11 @@ To perform the intersection operation we:
 * each addition or lookup of the hash-map takes O(1) time.
 
 Total Time Complexity: O(m+n).
+
+## Space Analysis
+For both union and intersection we will need the following space:
+* First linked list - O(m)
+* Second linked list - O(n)
+* List returned: O(m+n)
+
+Total space required: O(m+n)
