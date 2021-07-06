@@ -66,6 +66,10 @@ def union(llist_1, llist_2):
     Returns:
          union of llist1 and llist2
     """
+    if llist_1 is None:
+        raise ValueError("llist1 cannot be None")
+    if llist_2 is None:
+        raise ValueError("llist2 cannot be None")
     unique_vals = set()
     union_llist = LinkedList()
     # traverse the first linked list
@@ -103,6 +107,10 @@ def intersection(llist_1, llist_2):
     Returns:
          intersection of llist1 and llist2
     """
+    if llist_1 is None:
+        raise ValueError("llist1 cannot be None")
+    if llist_2 is None:
+        raise ValueError("llist2 cannot be None")
     unique_vals_1 = set()  # handle non-unique values in first linked list
     unique_vals_out = set()  # handle non-unique values in second linked list
     intersection_llist = LinkedList()
@@ -157,6 +165,26 @@ class UnionIntersectionTestCase(unittest.TestCase):
         print(output_union)
         output_intersection = intersection(linked_list_3, linked_list_4)
         self.assertIsNone(output_intersection)
+
+    def test_union_with_invalid_first_list(self):
+        linked_list = LinkedList()
+        with self.assertRaises(ValueError):
+            union(None, linked_list)
+
+    def test_union_with_invalid_second_list(self):
+        linked_list = LinkedList()
+        with self.assertRaises(ValueError):
+            union(linked_list, None)
+
+    def test_intersection_with_invalid_first_list(self):
+        linked_list = LinkedList()
+        with self.assertRaises(ValueError):
+            intersection(None, linked_list)
+
+    def test_intersection_with_invalid_second_list(self):
+        linked_list = LinkedList()
+        with self.assertRaises(ValueError):
+            intersection(linked_list, None)
 
 
 if __name__ == '__main__':

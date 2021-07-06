@@ -43,6 +43,10 @@ class DoublyLinkedList:
 
 class Block:
     def __init__(self, timestamp, data, previous_hash):
+        if timestamp is None:
+            raise ValueError("timestamp cannot be None")
+        if data is None:
+            raise ValueError("data cannot be None")
         self.timestamp = timestamp
         self.data = data
         self.previous_hash = previous_hash
@@ -66,6 +70,14 @@ class BlockChainTestCase(unittest.TestCase):
         block_chain.append(block1)
         block2 = Block(gmt, "third_block", block1.hash)
         block_chain.append(block2)
+
+    def test_invalid_block_timestamp(self):
+        with self.assertRaises(ValueError):
+            Block(None, "test data", None)
+
+    def test_invalid_block_data(self):
+        with self.assertRaises(ValueError):
+            Block(time.gmtime(), None, None)
 
 
 if __name__ == '__main__':

@@ -64,6 +64,8 @@ def create_huffman_tree(message):
     Returns:
         root_node (HuffmanNode): root node of the huffman tree
     """
+    if message is None:
+        raise ValueError('message cannot be None')
     if len(message) == 0:
         raise ValueError('input message is empty')
     # determine the frequency of each character in the message
@@ -102,6 +104,10 @@ class HuffmanCodingTestCase(unittest.TestCase):
     def test_empty_message_raises_value_error(self):
         with self.assertRaises(ValueError):
             create_huffman_tree('')
+
+    def test_none_message_raises_value_error(self):
+        with self.assertRaises(ValueError):
+            create_huffman_tree(None)
 
 
 if __name__ == '__main__':

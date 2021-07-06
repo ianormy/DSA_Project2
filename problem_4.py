@@ -7,8 +7,12 @@ import unittest
 
 
 class Group(object):
-    def __init__(self, _name):
-        self.name = _name
+    def __init__(self, name):
+        if name is None:
+            raise ValueError("name cannot be None")
+        if len(name) == 0:
+            raise ValueError("name cannot be empty")
+        self.name = name
         self.groups = []
         self.users = []
 
@@ -60,6 +64,14 @@ class ActiveDirectoryTestCase(unittest.TestCase):
         self.assertTrue(is_user_in_group(sub_child_user, parent))
         self.assertFalse(is_user_in_group("daffy duck", parent))
         self.assertFalse(is_user_in_group(sub_child_user, child2))
+
+    def test_invalid_group_name(self):
+        with self.assertRaises(ValueError):
+            Group(None)
+
+    def test_empty_group_name(self):
+        with self.assertRaises(ValueError):
+            Group('')
 
 
 if __name__ == '__main__':
