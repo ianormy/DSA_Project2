@@ -19,3 +19,9 @@ Total time: O(1)
 * Move accessed node in linked-list to head: O(1)
 
 Total time: O(1)
+
+## Space Analysis
+An LRU cache that has **n** items requires a double-linked list of length 
+**n** and a hash map of **n** items.
+
+Total space: O(n + n) = O(n)
