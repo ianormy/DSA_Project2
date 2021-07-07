@@ -17,7 +17,7 @@ Let n denote the number of characters in the message.
 Total worst case time: O(n * 3) = O(n)
 
 ## Space Analysis
-In order to encode the tree we will create the tree with O(n log n) nodes and
+In order to encode the tree we will create the tree with O(n) nodes and
 return a list of O(n) items.
 
-Total space: O(n*log(n))
+Total space: O(n)
